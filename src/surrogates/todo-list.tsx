@@ -1,6 +1,6 @@
-import { useMachine } from "@xstate/react";
 import { TodoList } from "../features/todo-list";
 import { createMachine, assign } from "xstate";
+import { withSurrogate } from "./_withSurrogate";
 
 const todoMachine = createMachine({
   id: "todo",
@@ -22,16 +22,40 @@ const todoMachine = createMachine({
   },
 });
 
-export const STodoList = () => {
-  const [state, send] = useMachine(todoMachine);
+const TodoSurrogate = withSurrogate(todoMachine);
 
-  return (
-    <>
-      <TodoList
-        list={state.context.list}
-        onSubmit={(e) => send({ type: "ADD", value: e })}
-        onRemove={(e) => send({ type: "RM", value: e })}
-      />
-    </>
-  );
-};
+export const STodoList = () => (
+  <>
+    <TodoSurrogate
+      render={([state, send]) => (
+        <>
+          <TodoList
+            list={state.context.list}
+            onSubmit={(e) => send({ type: "ADD", value: e })}
+            onRemove={(e) => send({ type: "RM", value: e })}
+          />
+          <br />
+          <TodoList
+            list={state.context.list}
+            onSubmit={(e) => send({ type: "ADD", value: e })}
+            onRemove={(e) => send({ type: "RM", value: e })}
+          />
+        </>
+      )}
+    />
+
+    <hr />
+    <hr />
+    <hr />
+
+    <TodoSurrogate
+      render={([state, send]) => (
+        <TodoList
+          list={state.context.list}
+          onSubmit={(e) => send({ type: "ADD", value: e })}
+          onRemove={(e) => send({ type: "RM", value: e })}
+        />
+      )}
+    />
+  </>
+);
