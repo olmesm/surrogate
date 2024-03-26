@@ -1,6 +1,8 @@
 # Surrogate
 
-TODO application to figure out surrogate components.
+> How do we connect state machines into feature components
+
+TODO MVC to explore state connecters.
 
 ```bash
 npm install

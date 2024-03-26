@@ -26,10 +26,12 @@ export const STodoList = () => {
   const [state, send] = useMachine(todoMachine);
 
   return (
-    <TodoList
-      list={state.context.list}
-      onSubmit={(e) => send({ type: "ADD", value: e })}
-      onRemove={(e) => send({ type: "RM", value: e })}
-    />
+    <>
+      <TodoList
+        list={state.context.list}
+        onSubmit={(e) => send({ type: "ADD", value: e })}
+        onRemove={(e) => send({ type: "RM", value: e })}
+      />
+    </>
   );
 };
