@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { STodoList } from "../surrogates/todo-list";
+import { Todo } from "../surrogates/todo-list.surrogate";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -9,7 +9,7 @@ function Index() {
   return (
     <div>
       <h3>Welcome Home!</h3>
-      <STodoList />
+      <Todo />
     </div>
   );
 }
